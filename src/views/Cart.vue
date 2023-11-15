@@ -41,8 +41,6 @@ const router = useRouter();
 const removeFromCart = (id) => {
   productsStore.removeFromCart(id);
 };
-
-let itemQty = ref(5);
 </script>
 
 <style>

@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="control-panel flex column just-between">
+    <div class="control-panel flex end column just-between">
       <button
         class="btn"
         @click="removeFromCart(cartItem.id)"
@@ -62,18 +62,13 @@ export default defineComponent({
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useProductsStore } from "../stores/products";
 const props = defineProps({
   cartItem: Object,
 });
-console.log(props.cartItem);
 
 const emit = defineEmits(["removeFromCart"]);
 
-const productsStore = useProductsStore();
-
 const removeFromCart = (id) => {
-  productsStore.removeFromCart(id);
   emit("removeFromCart", id);
 };
 
@@ -126,6 +121,9 @@ const qtyIncrease = () => {
   font-size: 1.2rem;
   font-weight: 800;
   color: #333;
+}
+.cart-list__item .control-panel .btn {
+  max-width: 48px;
 }
 @media (max-width: 1699px) {
   .cart-list__item .img-wrapper {
