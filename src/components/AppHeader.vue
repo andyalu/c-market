@@ -6,7 +6,9 @@
       </RouterLink>
       <RouterLink :to="{ name: 'Cart' }" class="cart-indicator">
         <i class="bi bi-cart3"></i>
-        <span class="cart-length">{{ productsStore.cart.length }}</span>
+        <span v-if="productsStore.cart.length" class="cart-length">{{
+          productsStore.cart.length
+        }}</span>
       </RouterLink>
     </div>
   </header>
@@ -53,5 +55,11 @@ const productsStore = useProductsStore();
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 399px) {
+  .cart-indicator {
+    font-size: 18px;
+  }
 }
 </style>

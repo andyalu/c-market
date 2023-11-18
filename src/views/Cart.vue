@@ -19,11 +19,20 @@
         @removeFromCart="removeFromCart(item.id)"
       />
     </ul>
+    <div class="total-cost-widget flex center">
+      Total:&nbsp;<span class="currency">£</span
+      ><span class="total-value">{{ totalFinalCost }}</span>
+      &nbsp;&nbsp;
+      <button class="btn">
+        <span>Order</span>&nbsp;
+        <i class="bi bi-check-circle"></i>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, computed } from "vue";
 
 export default defineComponent({
   name: "Cart",
@@ -41,10 +50,40 @@ const router = useRouter();
 const removeFromCart = (id) => {
   productsStore.removeFromCart(id);
 };
+
+const totalFinalCost = computed(() => {
+  let total = [];
+
+  productsStore.cart.forEach((item) => {
+    total.push(item.price * item.quantity);
+  });
+
+  total = total.reduce((sum, el) => {
+    return sum + el;
+  });
+
+  return total;
+});
 </script>
 
 <style>
 .cart-wrapper {
   padding: 2rem 0;
+}
+.total-cost-widget {
+  position: fixed;
+  z-index: 15;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  background-color: #00a0461a;
+  border: 1px solid #00a046;
+}
+.total-cost-widget .currency {
+}
+.total-cost-widget .total-value {
+  font-weight: 700;
 }
 </style>

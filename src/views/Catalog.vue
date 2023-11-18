@@ -1,11 +1,11 @@
 <template>
   <div class="layout-main flex">
     <aside class="aside">
-      <MenuCategories />
+      <MenuCategories @sortByCategory="sortByCategory" />
     </aside>
     <div class="cards-wrapper products-list flex wrap">
       <ProductItem
-        v-for="product in productsStore.products"
+        v-for="product in filteredProducts"
         :key="product.id"
         :productData="product"
         @addToCart="addToCart(product)"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, computed, ref } from "vue";
 
 export default defineComponent({
   name: "Catalog",
@@ -33,6 +33,8 @@ import { useRouter } from "vue-router";
 const productsStore = useProductsStore();
 const router = useRouter();
 
+let sortedProducts = ref([]);
+
 const goToProductPage = (id) => {
   router.push({
     name: "Product",
@@ -48,6 +50,24 @@ const addToCart = (product) => {
 
 onMounted(async () => {
   await productsStore.fetchProductsFromDB();
+});
+
+const sortByCategory = (category) => {
+  sortedProducts.value = [];
+  productsStore.products.map((item) => {
+    if (item.category.toLowerCase() === category.toLowerCase()) {
+      console.log(item.category);
+      sortedProducts.value.push(item);
+    }
+  });
+};
+
+const filteredProducts = computed(() => {
+  if (sortedProducts.value.length) {
+    return sortedProducts.value;
+  } else {
+    return productsStore.products;
+  }
 });
 </script>
 
@@ -105,9 +125,6 @@ onMounted(async () => {
   }
   .header .container {
     width: 92%;
-  }
-  .cart-indicator {
-    font-size: 18px;
   }
 }
 </style>

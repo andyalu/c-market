@@ -62,6 +62,7 @@ export default defineComponent({
 
 <script setup>
 import { ref, onMounted } from "vue";
+
 const props = defineProps({
   cartItem: Object,
 });
@@ -74,6 +75,7 @@ const removeFromCart = (id) => {
 
 onMounted(() => {
   props.cartItem.quantity = ref(1);
+  // props.cartItem.isAddedToCart = ref(true);
 });
 
 const qtyDecrease = () => {

@@ -4,9 +4,16 @@
     <ul class="categories-list">
       <li
         class="categories-list__item flex center"
+        @click="sortByCategory('All')"
+      >
+        <i class="bi bi-list-check"></i>&nbsp;
+        <span>All</span>
+      </li>
+      <li
+        class="categories-list__item flex center"
         v-for="item in categories"
         :key="item.name"
-        @click="chooseCategory(item.name)"
+        @click="sortByCategory(item.name)"
         :data-category="item.name"
       >
         <i :class="item.iconClass"></i>&nbsp;
@@ -48,8 +55,10 @@ const categories = [
   },
 ];
 
-const chooseCategory = (option) => {
-  productsStore.sortByCategory(option);
+const emit = defineEmits(["sortByCategory"]);
+
+const sortByCategory = (category) => {
+  emit("sortByCategory", category);
 };
 </script>
 

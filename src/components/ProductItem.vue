@@ -32,7 +32,9 @@
       <p class="current-price flex center just-between">
         <span>£{{ productData.price }}</span>
         <button @click="addToCart(productData)" class="add-to-cart">
-          <i class="bi bi-cart3"></i>
+          <!-- <i class="bi bi-cart" v-if="productData.isAddedToCart === false"></i>
+          <i class="bi bi-cart-check-fill" v-else></i> -->
+          <i class="bi bi-cart"></i>
         </button>
       </p>
     </div>
@@ -40,7 +42,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "ProductItem",
@@ -51,7 +53,12 @@ export default defineComponent({
 const props = defineProps({
   productData: Object,
 });
+
 const emit = defineEmits(["addToCart", "goToProductPage"]);
+
+// onMounted(() => {
+//   props.productData.isAddedToCart = ref(false);
+// });
 
 const goToProductPage = (id) => {
   emit("goToProductPage", id);
@@ -59,6 +66,7 @@ const goToProductPage = (id) => {
 
 const addToCart = (item) => {
   emit("addToCart", item);
+  // item.isAddedToCart = true;
 };
 </script>
 
