@@ -66,6 +66,7 @@ const sortByCategory = (category) => {
 .menu-categories-wrapper {
   /* position: sticky;
   top: 1rem; */
+  margin-bottom: 1.5rem;
 }
 .categories-list__item {
   cursor: pointer;

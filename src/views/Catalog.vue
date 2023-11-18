@@ -2,6 +2,11 @@
   <div class="layout-main flex">
     <aside class="aside">
       <MenuCategories @sortByCategory="sortByCategory" />
+      <MenuFilters
+        @sortByPriceToHigh="sortByPriceToHigh"
+        @sortByPriceToLow="sortByPriceToLow"
+        @sortByRating="sortByRating"
+      />
     </aside>
     <div class="cards-wrapper products-list flex wrap">
       <ProductItem
@@ -25,6 +30,7 @@ export default defineComponent({
 
 <script setup>
 import MenuCategories from "@/components/MenuCategories.vue";
+import MenuFilters from "@/components/MenuFilters.vue";
 import ProductItem from "@/components/ProductItem.vue";
 import { onMounted } from "vue";
 import { useProductsStore } from "@/stores/products";
@@ -69,6 +75,42 @@ const filteredProducts = computed(() => {
     return productsStore.products;
   }
 });
+
+const sortByPriceToHigh = () => {
+  if (sortedProducts.value.length) {
+    sortedProducts.value = sortedProducts.value.sort((a, b) =>
+      a.price > b.price ? 1 : -1
+    );
+  } else {
+    productsStore.products = productsStore.products.sort((a, b) =>
+      a.price > b.price ? 1 : -1
+    );
+  }
+};
+
+const sortByPriceToLow = () => {
+  if (sortedProducts.value.length) {
+    sortedProducts.value = sortedProducts.value.sort((a, b) =>
+      a.price < b.price ? 1 : -1
+    );
+  } else {
+    productsStore.products = productsStore.products.sort((a, b) =>
+      a.price < b.price ? 1 : -1
+    );
+  }
+};
+
+const sortByRating = () => {
+  if (sortedProducts.value.length) {
+    sortedProducts.value = sortedProducts.value.sort((a, b) =>
+      a.rating < b.rating ? 1 : -1
+    );
+  } else {
+    productsStore.products = productsStore.products.sort((a, b) =>
+      a.rating < b.rating ? 1 : -1
+    );
+  }
+};
 </script>
 
 <style>
