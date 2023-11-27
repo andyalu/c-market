@@ -1,11 +1,14 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
+// if (localStorage.getItem("cart") !== "") {
+//   localStorage.setItem("cart", "");
+// }
+
 export const useProductsStore = defineStore("products", {
   state: () => ({
     products: [],
     cart: [],
-    currentSortedProducts: [],
   }),
 
   actions: {
@@ -17,13 +20,22 @@ export const useProductsStore = defineStore("products", {
         });
     },
     addToCart(product) {
-      this.cart.push(product);
+      let targetItem = this.cart.filter(
+        (currItem) => currItem.id === product.id
+      )[0];
+
+      if (targetItem) {
+        targetItem.quantity += 1;
+        console.log(targetItem.quantity);
+      } else {
+        this.cart = [...this.cart, { ...product, quantity: 1 }];
+      }
+      // this.cart.push(product);
+      // localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     removeFromCart(id) {
       this.cart = this.cart.filter((item) => item.id !== id);
-    },
-    sortByCategory(category) {
-      console.log(category.toLowerCase());
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
   },
 });

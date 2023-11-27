@@ -1,8 +1,15 @@
 <template>
   <header class="header flex center just-center">
     <div class="container flex center just-between">
-      <RouterLink :to="{ name: 'Catalog' }" class="logo">
-        <i class="bi bi-shop-window"></i>&nbsp; <b>C-MARKET</b>
+      <RouterLink :to="{ name: 'Catalog' }" class="logo flex center">
+        <img
+          src="../assets/logo-icon.png"
+          width="28"
+          height="28"
+          alt="Logo Icon"
+          class="logo-icon"
+        />
+        &nbsp; <span class="logo-text">C-MARKET</span>
       </RouterLink>
       <RouterLink :to="{ name: 'Cart' }" class="cart-indicator">
         <i class="bi bi-cart3"></i>
@@ -31,6 +38,9 @@ const productsStore = useProductsStore();
   padding: 0.5rem 0;
   height: var(--header-height);
 }
+.logo .logo-text {
+  font-family: var(--font-logo);
+}
 .cart-indicator {
   padding: 0.28rem;
   border-radius: 5px;
@@ -55,6 +65,14 @@ const productsStore = useProductsStore();
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 799px) {
+  .header {
+    position: fixed;
+    width: 100%;
+    z-index: 12;
+  }
 }
 
 @media (max-width: 399px) {

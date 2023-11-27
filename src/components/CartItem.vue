@@ -1,7 +1,11 @@
 <template>
   <li class="cart-list__item flex just-between">
     <div class="product-info flex">
-      <div class="img-wrapper">
+      <div
+        class="img-wrapper"
+        @click="goToProductPage(cartItem.id)"
+        title="See details"
+      >
         <img :src="cartItem.thumbnail" :alt="cartItem.title" loading="lazy" />
       </div>
       <div class="details">
@@ -67,10 +71,14 @@ const props = defineProps({
   cartItem: Object,
 });
 
-const emit = defineEmits(["removeFromCart"]);
+const emit = defineEmits(["removeFromCart", "goToProductPage"]);
 
 const removeFromCart = (id) => {
   emit("removeFromCart", id);
+};
+
+const goToProductPage = (id) => {
+  emit("goToProductPage", id);
 };
 
 onMounted(() => {
@@ -102,6 +110,7 @@ const qtyIncrease = () => {
   aspect-ratio: 1 / 0.65;
   overflow: hidden;
   border-radius: 5px;
+  cursor: pointer;
 }
 .cart-list__item .img-wrapper img {
   width: 100%;
@@ -130,6 +139,30 @@ const qtyIncrease = () => {
 @media (max-width: 1699px) {
   .cart-list__item .img-wrapper {
     max-width: 202px;
+  }
+}
+
+@media (max-width: 599px) {
+  .cart-list__item {
+    padding: 1rem 0.6rem;
+    flex-direction: column;
+  }
+  .cart-list__item .product-info {
+    padding: 0;
+  }
+  .cart-list__item .img-wrapper {
+    max-width: unset;
+    aspect-ratio: unset;
+  }
+  .product-info .details {
+    margin-left: 0.5rem;
+  }
+  .cart-list__item .control-panel {
+    flex-direction: row-reverse;
+  }
+  .cart-list__item .control-panel .btn {
+    padding: 0.28rem;
+    min-height: unset;
   }
 }
 </style>

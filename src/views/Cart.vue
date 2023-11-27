@@ -1,6 +1,9 @@
 <template>
   <div class="cart-wrapper" v-if="!productsStore.cart.length">
-    <button class="nav-link" @click="router.push({ name: 'Catalog' })">
+    <button
+      class="nav-link btn-outlined"
+      @click="router.push({ name: 'Catalog' })"
+    >
       <i class="bi bi-skip-backward-fill"></i> &nbsp;
       <span>Back to catalog</span>
     </button>
@@ -16,6 +19,7 @@
         v-for="item in productsStore.cart"
         :key="item.id"
         :cartItem="item"
+        @goToProductPage="goToProductPage(item.id)"
         @removeFromCart="removeFromCart(item.id)"
       />
     </ul>
@@ -40,12 +44,22 @@ export default defineComponent({
 </script>
 
 <script setup>
+import { onMounted } from "vue";
 import CartItem from "../components/CartItem.vue";
 import { useProductsStore } from "../stores/products";
 import { useRouter } from "vue-router";
 
 const productsStore = useProductsStore();
 const router = useRouter();
+
+const goToProductPage = (id) => {
+  router.push({
+    name: "Product",
+    params: {
+      id,
+    },
+  });
+};
 
 const removeFromCart = (id) => {
   productsStore.removeFromCart(id);
@@ -64,11 +78,17 @@ const totalFinalCost = computed(() => {
 
   return total;
 });
+
+// onMounted(() => {
+//   if (localStorage.getItem("cart")) {
+//     productsStore.cart = localStorage.getItem("cart");
+//   }
+// });
 </script>
 
 <style>
 .cart-wrapper {
-  padding: 2rem 0;
+  padding: 2rem 0 6rem 0;
 }
 .total-cost-widget {
   position: fixed;
@@ -80,10 +100,17 @@ const totalFinalCost = computed(() => {
   font-size: 1.5rem;
   background-color: #00a0461a;
   border: 1px solid #00a046;
+  backdrop-filter: blur(12px);
 }
 .total-cost-widget .currency {
 }
 .total-cost-widget .total-value {
   font-weight: 700;
+}
+
+@media screen and (max-width: 799px) {
+  .cart-wrapper .nav-link {
+    margin-top: var(--header-height);
+  }
 }
 </style>

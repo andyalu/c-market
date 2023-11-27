@@ -1,6 +1,9 @@
 <template>
   <div class="product-card-wrapper">
-    <button class="nav-link" @click="router.push({ name: 'Catalog' })">
+    <button
+      class="nav-link btn-outlined"
+      @click="router.push({ name: 'Catalog' })"
+    >
       <i class="bi bi-skip-backward-fill"></i> &nbsp;
       <span>Back to catalog</span>
     </button>
@@ -32,8 +35,11 @@
         </div>
       </div>
       <div class="product-card__info md-w-100 md-mt-2">
-        <h2 class="product-title">
-          {{ selectedProduct.title }}
+        <h2 class="product-title flex center">
+          <span>{{ selectedProduct.title }}</span>
+          <div class="discount-badge">
+            -{{ selectedProduct.discountPercentage }}%
+          </div>
         </h2>
         <p class="product-description border-bottom">
           {{ selectedProduct.description }}
@@ -164,6 +170,13 @@ const imgDemoClear = () => {
 .product-card__info .product-title {
   font-size: 1.8rem;
 }
+.product-card__info .product-title .discount-badge {
+  background-color: rgb(246, 211, 17);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.2rem;
+  margin-left: 1.2rem;
+}
 .product-card__info .product-description {
   margin: 1rem 0;
   max-width: 460px;
@@ -200,6 +213,15 @@ const imgDemoClear = () => {
   }
 }
 
+@media screen and (max-width: 799px) {
+  .product-card-wrapper .nav-link {
+    margin-top: var(--header-height);
+  }
+  .product-img-large {
+    aspect-ratio: 1 / 0.55;
+  }
+}
+
 @media screen and (max-width: 599px) {
   .product-card__img-wrapper {
     padding-right: 0;
@@ -212,9 +234,6 @@ const imgDemoClear = () => {
   }
   .product-card__info .product-title {
     font-size: 1.4rem;
-  }
-  .product-img-large {
-    aspect-ratio: 1 / 0.75;
   }
 }
 </style>

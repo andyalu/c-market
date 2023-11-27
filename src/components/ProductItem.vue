@@ -32,8 +32,6 @@
       <p class="current-price flex center just-between">
         <span>£{{ productData.price }}</span>
         <button @click="addToCart(productData)" class="add-to-cart">
-          <!-- <i class="bi bi-cart" v-if="productData.isAddedToCart === false"></i>
-          <i class="bi bi-cart-check-fill" v-else></i> -->
           <i class="bi bi-cart"></i>
         </button>
       </p>
@@ -56,27 +54,25 @@ const props = defineProps({
 
 const emit = defineEmits(["addToCart", "goToProductPage"]);
 
-// onMounted(() => {
-//   props.productData.isAddedToCart = ref(false);
-// });
-
 const goToProductPage = (id) => {
   emit("goToProductPage", id);
 };
 
 const addToCart = (item) => {
   emit("addToCart", item);
-  // item.isAddedToCart = true;
 };
 </script>
 
 <style>
 .products-list-card {
-  width: 16.66%;
-  padding: 0 0.5rem 1.5rem 0.5rem;
-  border-right: 1px solid #e9e9e9;
-  border-bottom: 1px solid #e9e9e9;
+  width: 15.66%;
+  background-color: #fff;
+  padding: 0;
+  border: 1px solid #e9e9e9;
+  border-radius: 5px;
+  overflow: hidden;
   position: relative;
+  margin: 0 0.2rem 0.8rem 0.2rem;
   transition: all ease 0.2s;
 }
 .products-list-card:hover {
@@ -103,7 +99,7 @@ const addToCart = (item) => {
 .card-img-wrapper:hover img {
   width: 110%;
 }
-.discount-badge {
+.card-img-wrapper .discount-badge {
   position: absolute;
   top: 0.1rem;
   left: 0;
@@ -113,7 +109,7 @@ const addToCart = (item) => {
   padding: 0.2rem;
 }
 .product-info {
-  padding: 0.5rem;
+  padding: 0.6rem;
 }
 .product-title {
   height: 40px;
@@ -173,13 +169,7 @@ const addToCart = (item) => {
 
 @media (max-width: 1699px) {
   .products-list-card {
-    width: 19.96%;
-    padding: 0 0.5rem 1.5rem 0.5rem;
-    cursor: pointer;
-    border-right: 1px solid #e9e9e9;
-    border-bottom: 1px solid #e9e9e9;
-    position: relative;
-    transition: all ease 0.2s;
+    width: 18.96%;
   }
   .card-img-wrapper {
     min-height: 7rem;
@@ -188,13 +178,7 @@ const addToCart = (item) => {
 
 @media (max-width: 1199px) {
   .products-list-card {
-    width: 24.76%;
-    padding: 0 0.5rem 1.5rem 0.5rem;
-    cursor: pointer;
-    border-right: 1px solid #e9e9e9;
-    border-bottom: 1px solid #e9e9e9;
-    position: relative;
-    transition: all ease 0.2s;
+    width: 23.76%;
   }
   .card-img-wrapper {
     min-height: 5rem;
@@ -206,15 +190,13 @@ const addToCart = (item) => {
 
 @media (max-width: 1199px) {
   .products-list-card {
-    width: 32.52%;
-    padding: 0 0.5rem 1.5rem 0.5rem;
+    width: 31.52%;
   }
 }
 
 @media (max-width: 599px) {
   .products-list-card {
-    width: 49.52%;
-    padding: 0 0.5rem 1.5rem 0.5rem;
+    width: 48.52%;
   }
   .card-img-wrapper {
     min-height: 7.2rem;
@@ -224,7 +206,6 @@ const addToCart = (item) => {
 @media (max-width: 399px) {
   .products-list-card {
     width: 100%;
-    padding: 0 0.5rem 1.5rem 0.5rem;
   }
   .card-img-wrapper {
     min-height: 10.4rem;
