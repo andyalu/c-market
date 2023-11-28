@@ -83,7 +83,6 @@ const goToProductPage = (id) => {
 
 onMounted(() => {
   props.cartItem.quantity = ref(1);
-  // props.cartItem.isAddedToCart = ref(true);
 });
 
 const qtyDecrease = () => {

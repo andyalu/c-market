@@ -79,11 +79,13 @@ const totalFinalCost = computed(() => {
   return total;
 });
 
-// onMounted(() => {
-//   if (localStorage.getItem("cart")) {
-//     productsStore.cart = localStorage.getItem("cart");
-//   }
-// });
+onMounted(() => {
+  if (localStorage.getItem("cart") !== "") {
+    productsStore.cart = JSON.parse(localStorage.getItem("cart"));
+  } else {
+    productsStore.cart = [];
+  }
+});
 </script>
 
 <style>

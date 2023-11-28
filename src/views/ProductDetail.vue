@@ -89,7 +89,7 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useProductsStore } from "@/stores/products";
 import { useRoute, useRouter } from "vue-router";
 
@@ -107,7 +107,13 @@ const addToCart = () => {
   productsStore.addToCart(selectedProduct.value);
 };
 
-let demoImgSrc = ref(selectedProduct.value.thumbnail);
+let demoImgSrc = ref(null);
+
+// if (selectedProduct.value.thumbnail) {
+//   let demoImgSrc = ref(selectedProduct.value.thumbnail);
+// } else {
+//   let demoImgSrc = ref(null);
+// }
 
 const imgDemoSet = (source) => {
   demoImgSrc.value = source;
@@ -116,6 +122,14 @@ const imgDemoSet = (source) => {
 const imgDemoClear = () => {
   demoImgSrc.value = selectedProduct.value.thumbnail;
 };
+
+onMounted(() => {
+  if (localStorage.getItem("cart") !== "") {
+    productsStore.cart = JSON.parse(localStorage.getItem("cart"));
+  } else {
+    productsStore.cart = [];
+  }
+});
 </script>
 
 <style>

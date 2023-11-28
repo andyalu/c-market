@@ -1,10 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
-// if (localStorage.getItem("cart") !== "") {
-//   localStorage.setItem("cart", "");
-// }
-
 export const useProductsStore = defineStore("products", {
   state: () => ({
     products: [],
@@ -31,7 +27,7 @@ export const useProductsStore = defineStore("products", {
         this.cart = [...this.cart, { ...product, quantity: 1 }];
       }
       // this.cart.push(product);
-      // localStorage.setItem("cart", JSON.stringify(this.cart));
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     removeFromCart(id) {
       this.cart = this.cart.filter((item) => item.id !== id);

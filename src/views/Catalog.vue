@@ -53,6 +53,16 @@ import { useRouter } from "vue-router";
 const productsStore = useProductsStore();
 const router = useRouter();
 
+onMounted(async () => {
+  await productsStore.fetchProductsFromDB();
+
+  if (localStorage.getItem("cart") !== "") {
+    productsStore.cart = JSON.parse(localStorage.getItem("cart"));
+  } else {
+    productsStore.cart = [];
+  }
+});
+
 const textInputData = {
   id: "searchInput",
   placeholder: "Search...",
@@ -74,10 +84,6 @@ const goToProductPage = (id) => {
 const addToCart = (product) => {
   productsStore.addToCart(product);
 };
-
-onMounted(async () => {
-  await productsStore.fetchProductsFromDB();
-});
 
 const sortByCategory = (category) => {
   sortedProducts.value = [];

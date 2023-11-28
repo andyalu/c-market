@@ -48,6 +48,7 @@ const sortByRating = () => {
 <style>
 .filter-item {
   margin-top: 0.8rem;
+  font-size: 0.88rem;
 }
 .filter-item .btn-outlined {
   margin-left: 0.4rem;
